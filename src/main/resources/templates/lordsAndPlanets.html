@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+        lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LordsAndPlanets</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</head>
+<body>
+<h2>Лорды</h2>
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Имя</th>
+    <th>Возраст</th>>
+    <th>Планеты</th>>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="lord : ${lords}">
+    <td th:text="${lord.lordId}"/>
+    <td th:text="${lord.name}"/>
+    <td th:text="${lord.age}"/>
+    <td>
+      <a th:href="@{'/main/getPlanetsForLord/' + ${lord.lordId}}" th:text="Просмотреть" sec></a>
+    </td>
+
+  </tr>
+  </tbody>
+</table>
+
+<h2>Планеты</h2>
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Имя</th>
+    <th>Принадлежность</th>>
+    <th>ID лорда</th>>
+    <th>Удаление планеты</th>>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="planet : ${planets}">
+    <td th:text="${planet.planetId}"/>
+    <td th:text="${planet.name}"/>
+    <td th:text="${planet.isOwned}"/>
+    <td th:text="${planet.lordId}"/>
+    <td>
+      <a th:href="@{'/main/destroyPlanet/' + ${planet.planetId}}"  th:text="Удалить"></a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<h3>Добавить Лорда</h3>
+ <form th:action="@{/main/createLord}" method="get" class="form-horizontal">
+   <div style="margin-top: 10px" class="form-group">
+     <div class="col-sm-6 controls">
+       <button type="submit" class="btn btn-primary">Создать Лорда</button>
+     </div>
+   </div>
+</form>
+
+<h3>Добавить Планету</h3>
+<form th:action="@{main/createPlanet}" method="get" class="form-horizontal">
+  <div style="margin-top: 10px" class="form-group">
+    <div class="col-sm-6 controls">
+      <button type="submit" class="btn btn-primary">Создать планету</button>
+    </div>
+  </div>
+</form>
+
+<h3> Назначить Повелителя управлять Планетой</h3>
+<form th:action="@{main/appoint}" method="get" class="form-horizontal">
+  <div style="margin-top: 10px" class="form-group">
+    <div class="col-sm-6 controls">
+      <button type="submit" class="btn btn-primary">Назначить</button>
+    </div>
+  </div>
+</form>
+
+<h2>Повелители бездельники</h2>
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Имя</th>
+    <th>Возраст</th>>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="lord : ${lordsLoungers}">
+    <td th:text="${lord.lordId}"/>
+    <td th:text="${lord.name}"/>
+    <td th:text="${lord.age}"/>
+  </tr>
+  </tbody>
+</table>
+
+<h2>Топ 10 самых молодых повелителей</h2>
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Имя</th>
+    <th>Возраст</th>>
+    <th>Планеты</th>>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="lord : ${theYoungestLords}">
+    <td th:text="${lord.lordId}"/>
+    <td th:text="${lord.name}"/>
+    <td th:text="${lord.age}"/>
+    <td>
+      <a th:href="@{'/main/getPlanetsForLord/' + ${lord.lordId}}" th:text="Просмотреть" sec></a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>
